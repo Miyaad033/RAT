@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus_Guy Services</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+            text-align: center;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        /* Header Styling */
+        h1 {
+            font-size: 3em;
+            color: #2a3d66;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        /* Button Styling */
+        .btn {
+            background: #0066cc; /* Default button color */
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #005bb5;
+            transform: scale(1.05);
+        }
+
+        /* Button Active Click Effect */
+        .btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Catalog Section */
+        .catalogues {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .catalogue {
+            background: #fff;
+            color: #333;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.3s;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .catalogue img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .catalogue h3 {
+            font-size: 1.5em;
+            color: #2a3d66;
+            margin: 20px;
+        }
+
+        .catalogue p {
+            font-size: 1.2em;
+            color: #666;
+            margin: 0 20px 20px;
+        }
+
+        .catalogue:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .catalogue:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Coupon Section */
+        #couponSection {
+            display: none;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #couponInput {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            width: 50%;
+            font-size: 16px;
+            margin-top: 10px;
+            color: #333;
+            transition: border 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid #0066cc;
+        }
+
+        /* Result Section */
+        #resultSection {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        #resultSection h2 {
+            color: #2a3d66;
+            font-size: 1.5em;
+        }
+
+        #discountWhatsAppLink {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        #discountWhatsAppLink:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Section */
+        footer {
+            margin-top: 50px;
+            background-color: #2a3d66;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Nexus_Guy Services</h1>
+    <p>Select Your Desired RAT Tool:</p>
+
+    <!-- Catalogues -->
+    <div class="catalogues">
+        <div class="catalogue">
+            <h3>Craxs Rat</h3>
+            <img src="https://i.imgur.com/kQ6pXHL.png" alt="Craxs Rat Image">
+            <p>Price: $100</p>
+            <button class="btn" onclick="selectItem('Craxs Rat', 100)">Buy Now</button>
+        </div>
+
+        <div class="catalogue">
+            <h3>Triton Rat</h3>
+            <img src="https://i.imgur.com/MZWorIg.jpeg" alt="Triton Rat Image">
+            <p>Price: $200</p>
+            <button class="btn" onclick="selectItem('Triton Rat', 200)">Buy Now</button>
+        </div>
+
+        <div class="catalogue">
+            <h3>Rat Kit Full Premium</h3>
+            <img src="https://i.imgur.com/T9EUMPy.png" alt="Rat Kit Full Premium Image">
+            <p>Price: $1000</p>
+            <button class="btn" onclick="selectItem('Rat Kit Full Premium', 1000)">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- Coupon Section -->
+    <div id="couponSection">
+        <h2>Selected Item: <span id="selectedItem"></span></h2>
+        <p>Price: $<span id="selectedPrice"></span></p>
+        <button class="btn" onclick="buyNow()">Buy Now</button>
+        <div id="couponInput">
+            <h3>Enter Coupon Code:</h3>
+            <input type="text" id="couponCode" placeholder="Enter Coupon Code">
+            <button class="btn" onclick="applyCoupon()">Apply</button>
+        </div>
+    </div>
+
+    <!-- Result Section -->
+    <div id="resultSection">
+        <h2 id="resultMessage"></h2>
+        <p>Contact us on WhatsApp: <a id="discountWhatsAppLink" target="_blank">+923492930140</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nexus_Guy Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let selectedItem = '';
+        let selectedPrice = 0;
+
+        function selectItem(item, price) {
+            selectedItem = item;
+            selectedPrice = price;
+            document.getElementById('selectedItem').innerText = item;
+            document.getElementById('selectedPrice').innerText = price;
+            const couponSection = document.getElementById('couponSection');
+            couponSection.style.display = 'block';
+            couponSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function buyNow() {
+            const whatsappURL = `https://wa.me/923492930140?text=I%20want%20"${selectedItem}"`;
+            window.open(whatsappURL, "_blank");
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.trim();
+            const resultSection = document.getElementById('resultSection');
+            const resultMessage = document.getElementById('resultMessage');
+            const discountWhatsAppLink = document.getElementById('discountWhatsAppLink');
+
+            if (couponCode === 'Spoiler50%') {
+                const discountedPrice = (selectedPrice * 0.5).toFixed(2);
+                resultMessage.innerText = `Coupon Applied! Discounted Price: $${discountedPrice}`;
+                discountWhatsAppLink.href = `https://wa.me/923492930140?text=I%20need%20"${selectedItem}"%20with%20Coupon%20Spoiler50%`;
+            } else {
+                resultMessage.innerText = 'Invalid Coupon Code!';
+            }
+
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
