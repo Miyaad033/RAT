@@ -244,10 +244,16 @@
             const resultMessage = document.getElementById('resultMessage');
             const discountWhatsAppLink = document.getElementById('discountWhatsAppLink');
 
+            let discountedPrice;
+
             if (couponCode === 'Spoiler50%') {
-                const discountedPrice = (selectedPrice * 0.5).toFixed(2);
+                discountedPrice = (selectedPrice * 0.5).toFixed(2);
                 resultMessage.innerText = `Coupon Applied! Discounted Price: $${discountedPrice}`;
                 discountWhatsAppLink.href = `https://wa.me/923492930140?text=I%20need%20"${selectedItem}"%20with%20Coupon%20Spoiler50%`;
+            } else if (couponCode === 'B.H50%') {
+                discountedPrice = (selectedPrice * 0.5).toFixed(2);
+                resultMessage.innerText = `Coupon Applied! Discounted Price: $${discountedPrice}`;
+                discountWhatsAppLink.href = `https://wa.me/923492930140?text=I%20need%20"${selectedItem}"%20with%20Coupon%20B.H50%`;
             } else {
                 resultMessage.innerText = 'Invalid Coupon Code!';
             }
