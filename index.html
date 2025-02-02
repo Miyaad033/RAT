@@ -237,6 +237,7 @@
     </div>
 
     <div class="cyber-grid">
+        <!-- Product 1: Craxs Rat -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.postimg.cc/fRzZz5Q2/craxs1.png" alt="Craxs Rat">
@@ -248,11 +249,13 @@
             <h3>CRAXS Ultimate Suite</h3>
             <div class="price">$100 <span class="old-price">$200</span></div>
             <p class="product-desc">Advanced remote administration toolkit with E2E encryption</p>
-            <button class="cyber-btn" onclick="selectItem('Craxs Rat', 200)">
+            <!-- Updated to pass both original and discounted prices -->
+            <button class="cyber-btn" onclick="selectItem('Craxs Rat', 200, 100)">
                 <i class="fas fa-terminal"></i> ACQUIRE
             </button>
         </div>
 
+        <!-- Product 2: Triton Rat -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.postimg.cc/02NJzGvQ/Tritron.png" alt="Triton Rat">
@@ -268,6 +271,7 @@
             </button>
         </div>
 
+        <!-- Product 3: Quantum Bundle -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.ibb.co/wrC7VpJV/Picsart-25-02-02-19-48-11-573.jpg" alt="Premium Kit">
@@ -314,14 +318,14 @@
             'LAUNCH20': 0.2
         };
 
-        function selectItem(item, price) {
+        function selectItem(item, originalPriceValue, discountedPriceValue = originalPriceValue) {
             currentItem = item;
-            originalPrice = price;
-            discountedPrice = price;
+            originalPrice = originalPriceValue;
+            discountedPrice = discountedPriceValue;
             
             document.getElementById('selectedItem').textContent = item;
-            document.getElementById('selectedPrice').textContent = price.toFixed(2);
-            document.getElementById('discountedPrice').textContent = price.toFixed(2);
+            document.getElementById('selectedPrice').textContent = originalPrice.toFixed(2);
+            document.getElementById('discountedPrice').textContent = discountedPrice.toFixed(2);
             document.getElementById('couponSection').style.display = 'block';
             document.getElementById('couponMessage').style.display = 'none';
             document.getElementById('couponCode').value = '';
