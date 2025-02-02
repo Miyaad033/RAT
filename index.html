@@ -382,11 +382,21 @@
 
         function applyCoupon() {
             const couponCode = document.getElementById('couponCode').value;
-            // Add coupon validation logic
+            if(couponCode === 'DISCOUNT10') {
+                alert('10% discount applied');
+                const currentPrice = parseFloat(document.getElementById('selectedPrice').textContent);
+                const discountedPrice = currentPrice * 0.9;
+                document.getElementById('selectedPrice').textContent = discountedPrice.toFixed(2);
+            } else {
+                alert('Invalid coupon');
+            }
         }
 
         function buyNow() {
-            // Add payment gateway integration
+            const item = document.getElementById('selectedItem').textContent;
+            const price = document.getElementById('selectedPrice').textContent;
+            const url = `https://wa.me/1234567890?text=I%20want%20to%20buy%20${item}%20for%20$${price}`;
+            window.open(url, '_blank');
         }
 
         // Initialize GSAP animations
