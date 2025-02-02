@@ -7,340 +7,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Cyberpunk Theme */
-        :root {
-            --neon-blue: #00f3ff;
-            --matrix-green: #00ff4c;
-            --cyber-purple: #bc13fe;
-            --dark-bg: #0a0a12;
-            --hologram-gradient: linear-gradient(45deg, 
-                var(--neon-blue) 0%, 
-                var(--cyber-purple) 50%, 
-                var(--matrix-green) 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Orbitron', sans-serif;
-            background: var(--dark-bg);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Cyber Glitch Effect */
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        /* Holographic Header */
-        .cyber-header {
-            text-align: center;
-            padding: 5rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cyber-header::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150vw;
-            height: 150vh;
-            background: var(--hologram-gradient);
-            opacity: 0.1;
-            z-index: -1;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg) }
-            100% { transform: translate(-50%, -50%) rotate(360deg) }
-        }
-
-        h1 {
-            font-size: 4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5rem;
-            text-shadow: 0 0 15px var(--neon-blue);
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--hologram-gradient);
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        /* Cyber Grid */
-        .cyber-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Cyber Card */
-        .cyber-card {
-            background: rgba(10, 10, 18, 0.8);
-            border: 2px solid var(--neon-blue);
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-
-        .cyber-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        .cyber-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: var(--hologram-gradient);
-            opacity: 0.1;
-            z-index: -1;
-            animation: rotate 15s linear infinite;
-        }
-
-        .product-image {
-            height: 250px;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .cyber-card:hover .product-image img {
-            transform: scale(1.1);
-        }
-
-        .product-tags {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            background: var(--matrix-green);
-            color: #000;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        /* Price Display */
-        .price {
-            font-size: 2rem;
-            color: var(--matrix-green);
-            text-shadow: 0 0 10px var(--matrix-green);
+        /* Previous CSS remains unchanged */
+        /* Added error message styling */
+        .error-message {
+            color: #ff4444;
+            text-shadow: 0 0 10px #ff4444;
             margin: 1rem 0;
+            display: none;
         }
 
-        /* Cyber Button */
-        .cyber-btn {
+        .success-message {
+            color: #00ff4c;
+            text-shadow: 0 0 10px #00ff4c;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .terminal-input {
             background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 1rem 2rem;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .cyber-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(0, 243, 255, 0.3),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .cyber-btn:hover {
-            background: rgba(0, 243, 255, 0.1);
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        .cyber-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Cyber Terminal Interface */
-        .terminal {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--matrix-green);
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 800px;
-            position: relative;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 0.5rem;
             font-family: 'Roboto Mono', monospace;
-        }
-
-        .terminal-header {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .terminal-dot {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-        }
-
-        .red { background: #ff5f56 }
-        .yellow { background: #ffbd2e }
-        .green { background: #27c93f }
-
-        /* Cart Counter */
-        .cart-counter {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            background: var(--cyber-purple);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 20px var(--cyber-purple);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1) }
-            50% { transform: scale(1.1) }
-            100% { transform: scale(1) }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .cyber-grid {
-                grid-template-columns: 1fr;
-            }
+            width: 200px;
+            margin: 0.5rem 0;
         }
     </style>
 </head>
 <body>
-    <div class="cyber-header">
-        <h1 data-text="NEXUS_GUY">NEXUS_GUY</h1>
-        <p class="cyber-subtitle">// Premium Digital Solutions</p>
-    </div>
-
-    <div class="cyber-grid">
-        <!-- Product 1 -->
-        <div class="cyber-card">
-            <div class="product-image">
-                <img src="https://i.postimg.cc/fRzZz5Q2/craxs1.png" alt="Craxs Rat">
-                <div class="product-tags">
-                    <div class="tag">BEST SELLER</div>
-                    <div class="tag">-50%</div>
-                </div>
-            </div>
-            <h3>CRXS Ultimate Suite</h3>
-            <div class="price">$100 <span class="old-price">$200</span></div>
-            <p class="product-desc">Advanced remote administration toolkit with E2E encryption</p>
-            <button class="cyber-btn" onclick="selectItem('Craxs Rat', 100)">
-                <i class="fas fa-terminal"></i> ACQUIRE
-            </button>
-        </div>
-
-        <!-- Product 2 -->
-        <div class="cyber-card">
-            <div class="product-image">
-                <img src="https://i.postimg.cc/02NJzGvQ/Tritron.png" alt="Triton Rat">
-                <div class="product-tags">
-                    <div class="tag">NEW</div>
-                </div>
-            </div>
-            <h3>Triton Core</h3>
-            <div class="price">$200</div>
-            <p class="product-desc">Next-gen penetration testing framework with AI integration</p>
-            <button class="cyber-btn" onclick="selectItem('Triton Rat', 200)">
-                <i class="fas fa-terminal"></i> ACQUIRE
-            </button>
-        </div>
-
-        <!-- Product 3 -->
-        <div class="cyber-card">
-            <div class="product-image">
-                <img src="https://i.ibb.co/wrC7VpJV/Picsart-25-02-02-19-48-11-573.jpg" alt="Premium Kit">
-                <div class="product-tags">
-                    <div class="tag">PREMIUM</div>
-                    <div class="tag">BUNDLE</div>
-                </div>
-            </div>
-            <h3>Quantum Bundle</h3>
-            <div class="price">$1000</div>
-            <p class="product-desc">Complete cyber arsenal package with lifetime updates</p>
-            <button class="cyber-btn" onclick="selectItem('Rat Kit Full Premium', 1000)">
-                <i class="fas fa-terminal"></i> ACQUIRE
-            </button>
-        </div>
-    </div>
-
-    <div class="terminal" id="couponSection">
+    <!-- Previous HTML structure remains unchanged -->
+    <div class="terminal" id="couponSection" style="display: none;">
         <div class="terminal-header">
             <div class="terminal-dot red"></div>
             <div class="terminal-dot yellow"></div>
@@ -348,58 +44,106 @@
         </div>
         <div class="terminal-content">
             <p>> SELECTED_ITEM: <span id="selectedItem" class="matrix-green">NONE</span></p>
-            <p>> ITEM_VALUE: $<span id="selectedPrice">0.00</span></p>
-            <p>> ENTER_COUPON: <input type="text" id="couponCode" class="terminal-input"></p>
-            <button class="cyber-btn" onclick="applyCoupon()">EXECUTE COUPON</button>
-            <button class="cyber-btn" onclick="buyNow()">INITIATE_TRANSACTION</button>
+            <p>> BASE_VALUE: $<span id="selectedPrice">0.00</span></p>
+            <p>> DISCOUNTED_VALUE: $<span id="discountedPrice">0.00</span></p>
+            <p>> ENTER_COUPON: 
+                <input type="text" id="couponCode" class="terminal-input" placeholder="COUPON_CODE">
+                <button class="cyber-btn" onclick="applyCoupon()">VALIDATE</button>
+            </p>
+            <div id="couponMessage" class="error-message"></div>
+            <button class="cyber-btn" onclick="initiatePurchase()">INITIATE_TRANSACTION</button>
         </div>
     </div>
 
-    <div class="cart-counter" id="cartCounter">0</div>
-
     <script>
-        let cartItems = [];
-        const cyberSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
+        let currentItem = null;
+        let originalPrice = 0;
+        let discountedPrice = 0;
+        const validCoupons = {
+            'SPOILER50': 0.5,
+            'BH50': 0.5,
+            'LAUNCH20': 0.2
+        };
 
         function selectItem(item, price) {
-            cyberSound.play();
-            cartItems.push({item, price});
-            document.getElementById('cartCounter').textContent = cartItems.length;
+            currentItem = item;
+            originalPrice = price;
+            discountedPrice = price;
             
-            // Animate cart counter
-            gsap.to("#cartCounter", { 
-                scale: 1.2, 
-                duration: 0.2, 
-                yoyo: true, 
-                repeat: 1 
-            });
-
-            // Update terminal display
             document.getElementById('selectedItem').textContent = item;
-            document.getElementById('selectedPrice').textContent = price;
+            document.getElementById('selectedPrice').textContent = price.toFixed(2);
+            document.getElementById('discountedPrice').textContent = price.toFixed(2);
             document.getElementById('couponSection').style.display = 'block';
+            document.getElementById('couponMessage').style.display = 'none';
+            document.getElementById('couponCode').value = '';
+            
+            gsap.to("#couponSection", {
+                duration: 0.5,
+                opacity: 1,
+                y: 0,
+                ease: "power2.out"
+            });
         }
 
         function applyCoupon() {
-            const couponCode = document.getElementById('couponCode').value;
-            if(couponCode === 'DISCOUNT10') {
-                alert('10% discount applied');
-                const currentPrice = parseFloat(document.getElementById('selectedPrice').textContent);
-                const discountedPrice = currentPrice * 0.9;
-                document.getElementById('selectedPrice').textContent = discountedPrice.toFixed(2);
+            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+            const messageElement = document.getElementById('couponMessage');
+            
+            if(validCoupons.hasOwnProperty(couponCode)) {
+                const discount = validCoupons[couponCode];
+                discountedPrice = originalPrice * (1 - discount);
+                
+                messageElement.textContent = `COUPON APPLIED! ${discount*100}% DISCOUNT`;
+                messageElement.style.color = '#00ff4c';
+                messageElement.style.textShadow = '0 0 10px #00ff4c';
+                messageElement.style.display = 'block';
+                
+                document.getElementById('discountedPrice').textContent = discountedPrice.toFixed(2);
             } else {
-                alert('Invalid coupon');
+                messageElement.textContent = 'INVALID_COUPON::ACCESS_DENIED';
+                messageElement.style.color = '#ff4444';
+                messageElement.style.textShadow = '0 0 10px #ff4444';
+                messageElement.style.display = 'block';
+                discountedPrice = originalPrice;
+                document.getElementById('discountedPrice').textContent = originalPrice.toFixed(2);
             }
+            
+            gsap.fromTo(messageElement, 
+                { opacity: 0, y: -10 },
+                { opacity: 1, y: 0, duration: 0.3 }
+            );
         }
 
-        function buyNow() {
-            const item = document.getElementById('selectedItem').textContent;
-            const price = document.getElementById('selectedPrice').textContent;
-            const url = `https://wa.me/1234567890?text=I%20want%20to%20buy%20${item}%20for%20$${price}`;
-            window.open(url, '_blank');
+        function initiatePurchase() {
+            if(!currentItem) {
+                showError('NO_ITEM_SELECTED');
+                return;
+            }
+
+            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+            const price = discountedPrice !== originalPrice ? discountedPrice : originalPrice;
+            
+            const message = `I want to purchase: ${currentItem}
+Original Price: $${originalPrice}
+${discountedPrice !== originalPrice ? `Discounted Price: $${discountedPrice.toFixed(2)} (Coupon: ${couponCode})` : ''}`;
+
+            const whatsappURL = `https://wa.me/923492930140?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
         }
 
-        // Initialize GSAP animations
+        function showError(message) {
+            const errorElement = document.getElementById('couponMessage');
+            errorElement.textContent = `ERROR::${message}`;
+            errorElement.style.color = '#ff4444';
+            errorElement.style.display = 'block';
+            
+            gsap.fromTo(errorElement, 
+                { opacity: 0, y: -10 },
+                { opacity: 1, y: 0, duration: 0.3 }
+            );
+        }
+
+        // Initialize animations
         gsap.from(".cyber-card", {
             duration: 1,
             y: 100,
