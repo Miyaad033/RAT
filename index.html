@@ -3,264 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus_Guy Services</title>
+    <title>Nexus_Guy | CyberStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* General Body Styling */
-        body {
-            font-family: 'Arial', sans-serif;
+        /* Cyberpunk Theme */
+        :root {
+            --neon-blue: #00f3ff;
+            --matrix-green: #00ff4c;
+            --cyber-purple: #bc13fe;
+            --dark-bg: #0a0a12;
+            --hologram-gradient: linear-gradient(45deg, 
+                var(--neon-blue) 0%, 
+                var(--cyber-purple) 50%, 
+                var(--matrix-green) 100%);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f7fa;
-            color: #333;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Cyber Glitch Effect */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* Holographic Header */
+        .cyber-header {
             text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        h1, h2, h3, p {
-            margin: 0;
-            padding: 10px 0;
+        .cyber-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150vw;
+            height: 150vh;
+            background: var(--hologram-gradient);
+            opacity: 0.1;
+            z-index: -1;
+            animation: rotate 20s linear infinite;
         }
 
-        /* Header Styling */
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg) }
+            100% { transform: translate(-50%, -50%) rotate(360deg) }
+        }
+
         h1 {
-            font-size: 3em;
-            color: #2a3d66;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5rem;
+            text-shadow: 0 0 15px var(--neon-blue);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--hologram-gradient);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* Cyber Grid */
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Cyber Card */
+        .cyber-card {
+            background: rgba(10, 10, 18, 0.8);
+            border: 2px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--hologram-gradient);
+            opacity: 0.1;
+            z-index: -1;
+            animation: rotate 15s linear infinite;
+        }
+
+        .product-image {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .cyber-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-tags {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--matrix-green);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Price Display */
+        .price {
+            font-size: 2rem;
+            color: var(--matrix-green);
+            text-shadow: 0 0 10px var(--matrix-green);
+            margin: 1rem 0;
+        }
+
+        /* Cyber Button */
+        .cyber-btn {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 1rem 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            padding-top: 50px;
-            margin-bottom: 30px;
-        }
-
-        /* Button Styling */
-        .btn {
-            background: #0066cc; /* Default button color */
-            color: #fff;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .btn:hover {
-            background: #005bb5;
-            transform: scale(1.05);
-        }
-
-        /* Button Active Click Effect */
-        .btn:active {
-            transform: scale(0.98);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Catalog Section */
-        .catalogues {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-
-        .catalogue {
-            background: #fff;
-            color: #333;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            position: relative;
             overflow: hidden;
-            transition: box-shadow 0.3s, transform 0.3s;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-
-        .catalogue img {
+            transition: all 0.3s;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid #ddd;
-            transition: transform 0.3s ease-in-out;
+            margin-top: 1rem;
         }
 
-        .catalogue h3 {
-            font-size: 1.5em;
-            color: #2a3d66;
-            margin: 20px;
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 243, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
         }
 
-        .catalogue p {
-            font-size: 1.2em;
-            color: #666;
-            margin: 0 20px 20px;
+        .cyber-btn:hover {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px var(--neon-blue);
         }
 
-        .catalogue:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
+        .cyber-btn:hover::before {
+            left: 100%;
         }
 
-        .catalogue:hover img {
-            transform: scale(1.05);
+        /* Cyber Terminal Interface */
+        .terminal {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            font-family: 'Roboto Mono', monospace;
         }
 
-        /* Coupon Section */
-        #couponSection {
-            display: none;
-            padding: 30px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            margin-top: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        #couponInput {
-            margin-top: 20px;
+        .terminal-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
         }
 
-        input[type="text"] {
-            padding: 12px;
-            border: 2px solid #ccc;
-            border-radius: 25px;
-            width: 50%;
-            font-size: 16px;
-            margin-top: 10px;
-            color: #333;
-            transition: border 0.3s ease-in-out;
+        .red { background: #ff5f56 }
+        .yellow { background: #ffbd2e }
+        .green { background: #27c93f }
+
+        /* Cart Counter */
+        .cart-counter {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--cyber-purple);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px var(--cyber-purple);
+            animation: pulse 2s infinite;
         }
 
-        input[type="text"]:focus {
-            border: 2px solid #0066cc;
+        @keyframes pulse {
+            0% { transform: scale(1) }
+            50% { transform: scale(1.1) }
+            100% { transform: scale(1) }
         }
 
-        /* Result Section */
-        #resultSection {
-            display: none;
-            padding: 20px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
 
-        #resultSection h2 {
-            color: #2a3d66;
-            font-size: 1.5em;
-        }
-
-        #discountWhatsAppLink {
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        #discountWhatsAppLink:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer Section */
-        footer {
-            margin-top: 50px;
-            background-color: #2a3d66;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
+            .cyber-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Nexus_Guy Services</h1>
-    <p>Select Your Desired RAT Tool:</p>
+    <div class="cyber-header">
+        <h1 data-text="NEXUS_GUY">NEXUS_GUY</h1>
+        <p class="cyber-subtitle">// Premium Digital Solutions</p>
+    </div>
 
-    <!-- Catalogues -->
-    <div class="catalogues">
-        <div class="catalogue">
-            <h3>Craxs Rat</h3>
-            <img src="https://i.postimg.cc/fRzZz5Q2/craxs1.png" alt="Craxs Rat Image">
-            <p>Price: $100</p>
-            <button class="btn" onclick="selectItem('Craxs Rat', 100)">Buy Now</button>
+    <div class="cyber-grid">
+        <!-- Product 1 -->
+        <div class="cyber-card">
+            <div class="product-image">
+                <img src="https://i.postimg.cc/fRzZz5Q2/craxs1.png" alt="Craxs Rat">
+                <div class="product-tags">
+                    <div class="tag">BEST SELLER</div>
+                    <div class="tag">-50%</div>
+                </div>
+            </div>
+            <h3>CRXS Ultimate Suite</h3>
+            <div class="price">$100 <span class="old-price">$200</span></div>
+            <p class="product-desc">Advanced remote administration toolkit with E2E encryption</p>
+            <button class="cyber-btn" onclick="selectItem('Craxs Rat', 100)">
+                <i class="fas fa-terminal"></i> ACQUIRE
+            </button>
         </div>
 
-        <div class="catalogue">
-            <h3>Triton Rat</h3>
-            <img src="https://i.postimg.cc/02NJzGvQ/Tritron.png" alt="Triton Rat Image">
-            <p>Price: $200</p>
-            <button class="btn" onclick="selectItem('Triton Rat', 200)">Buy Now</button>
+        <!-- Product 2 -->
+        <div class="cyber-card">
+            <div class="product-image">
+                <img src="https://i.postimg.cc/02NJzGvQ/Tritron.png" alt="Triton Rat">
+                <div class="product-tags">
+                    <div class="tag">NEW</div>
+                </div>
+            </div>
+            <h3>Triton Core</h3>
+            <div class="price">$200</div>
+            <p class="product-desc">Next-gen penetration testing framework with AI integration</p>
+            <button class="cyber-btn" onclick="selectItem('Triton Rat', 200)">
+                <i class="fas fa-terminal"></i> ACQUIRE
+            </button>
         </div>
 
-        <div class="catalogue">
-            <h3>Rat Kit Full Premium</h3>
-            <img src="https://ibb.co/wrC7VpJV"><img src="https://i.ibb.co/wrC7VpJV/Picsart-25-02-02-19-48-11-573.jpg" alt="Rat Kit Full Premium Image">
-            <p>Price: $1000</p>
-            <button class="btn" onclick="selectItem('Rat Kit Full Premium', 1000)">Buy Now</button>
+        <!-- Product 3 -->
+        <div class="cyber-card">
+            <div class="product-image">
+                <img src="https://i.ibb.co/wrC7VpJV/Picsart-25-02-02-19-48-11-573.jpg" alt="Premium Kit">
+                <div class="product-tags">
+                    <div class="tag">PREMIUM</div>
+                    <div class="tag">BUNDLE</div>
+                </div>
+            </div>
+            <h3>Quantum Bundle</h3>
+            <div class="price">$1000</div>
+            <p class="product-desc">Complete cyber arsenal package with lifetime updates</p>
+            <button class="cyber-btn" onclick="selectItem('Rat Kit Full Premium', 1000)">
+                <i class="fas fa-terminal"></i> ACQUIRE
+            </button>
         </div>
     </div>
 
-    <!-- Coupon Section -->
-    <div id="couponSection">
-        <h2>Selected Item: <span id="selectedItem"></span></h2>
-        <p>Price: $<span id="selectedPrice"></span></p>
-        <button class="btn" onclick="buyNow()">Buy Now</button>
-        <div id="couponInput">
-            <h3>Enter Coupon Code:</h3>
-            <input type="text" id="couponCode" placeholder="Enter Coupon Code">
-            <button class="btn" onclick="applyCoupon()">Apply</button>
+    <div class="terminal" id="couponSection">
+        <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-content">
+            <p>> SELECTED_ITEM: <span id="selectedItem" class="matrix-green">NONE</span></p>
+            <p>> ITEM_VALUE: $<span id="selectedPrice">0.00</span></p>
+            <p>> ENTER_COUPON: <input type="text" id="couponCode" class="terminal-input"></p>
+            <button class="cyber-btn" onclick="applyCoupon()">EXECUTE COUPON</button>
+            <button class="cyber-btn" onclick="buyNow()">INITIATE_TRANSACTION</button>
         </div>
     </div>
 
-    <!-- Result Section -->
-    <div id="resultSection">
-        <h2 id="resultMessage"></h2>
-        <p>Contact us on WhatsApp: <a id="discountWhatsAppLink" target="_blank">+923492930140</a></p>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Nexus_Guy Services. All rights reserved.</p>
-    </footer>
+    <div class="cart-counter" id="cartCounter">0</div>
 
     <script>
-        let selectedItem = '';
-        let selectedPrice = 0;
+        let cartItems = [];
+        const cyberSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
 
         function selectItem(item, price) {
-            selectedItem = item;
-            selectedPrice = price;
-            document.getElementById('selectedItem').innerText = item;
-            document.getElementById('selectedPrice').innerText = price;
-            const couponSection = document.getElementById('couponSection');
-            couponSection.style.display = 'block';
-            couponSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+            cyberSound.play();
+            cartItems.push({item, price});
+            document.getElementById('cartCounter').textContent = cartItems.length;
+            
+            // Animate cart counter
+            gsap.to("#cartCounter", { 
+                scale: 1.2, 
+                duration: 0.2, 
+                yoyo: true, 
+                repeat: 1 
+            });
 
-        function buyNow() {
-            const whatsappURL = `https://wa.me/923492930140?text=I%20want%20"${selectedItem}"`;
-            window.open(whatsappURL, "_blank");
+            // Update terminal display
+            document.getElementById('selectedItem').textContent = item;
+            document.getElementById('selectedPrice').textContent = price;
+            document.getElementById('couponSection').style.display = 'block';
         }
 
         function applyCoupon() {
-            const couponCode = document.getElementById('couponCode').value.trim();
-            const resultSection = document.getElementById('resultSection');
-            const resultMessage = document.getElementById('resultMessage');
-            const discountWhatsAppLink = document.getElementById('discountWhatsAppLink');
-
-            let discountedPrice;
-
-            if (couponCode === 'Spoiler50%') {
-                discountedPrice = (selectedPrice * 0.5).toFixed(2);
-                resultMessage.innerText = `Coupon Applied! Discounted Price: $${discountedPrice}`;
-                discountWhatsAppLink.href = `https://wa.me/923492930140?text=I%20need%20"${selectedItem}"%20with%20Coupon%20Spoiler50%`;
-            } else if (couponCode === 'B.H50%') {
-                discountedPrice = (selectedPrice * 0.5).toFixed(2);
-                resultMessage.innerText = `Coupon Applied! Discounted Price: $${discountedPrice}`;
-                discountWhatsAppLink.href = `https://wa.me/923492930140?text=I%20need%20"${selectedItem}"%20with%20Coupon%20B.H50%`;
-            } else {
-                resultMessage.innerText = 'Invalid Coupon Code!';
-            }
-
-            resultSection.style.display = 'block';
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const couponCode = document.getElementById('couponCode').value;
+            // Add coupon validation logic
         }
+
+        function buyNow() {
+            // Add payment gateway integration
+        }
+
+        // Initialize GSAP animations
+        gsap.from(".cyber-card", {
+            duration: 1,
+            y: 100,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power4.out"
+        });
+
+        gsap.from("h1", {
+            duration: 1.5,
+            opacity: 0,
+            y: -50,
+            ease: "bounce.out"
+        });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </body>
 </html>
