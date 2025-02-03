@@ -32,6 +32,7 @@
             overflow-x: hidden;
         }
 
+        /* Header Styles */
         .cyber-header {
             text-align: center;
             padding: 5rem 2rem;
@@ -89,15 +90,17 @@
             box-shadow: 0 0 10px var(--neon-blue);
         }
 
+        /* Product Grid */
         .cyber-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             padding: 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
+        /* Product Cards */
         .cyber-card {
             background: rgba(10, 10, 18, 0.8);
             border: 2px solid var(--neon-blue);
@@ -153,6 +156,7 @@
             transform: scale(1.1);
         }
 
+        /* Product Tags */
         .product-tags {
             position: absolute;
             top: 1rem;
@@ -176,6 +180,7 @@
             50% { transform: scale(1.1); }
         }
 
+        /* Pricing */
         .price {
             font-size: 2rem;
             color: var(--matrix-green);
@@ -190,6 +195,7 @@
             margin-left: 0.5rem;
         }
 
+        /* Product Description */
         .product-desc {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             font-size: 1rem;
@@ -198,6 +204,7 @@
             margin: 1rem 0;
         }
 
+        /* Cyber Button */
         .cyber-btn {
             background: transparent;
             border: 2px solid var(--neon-blue);
@@ -226,6 +233,7 @@
             box-shadow: 0 0 30px var(--neon-blue);
         }
 
+        /* Terminal Section */
         .terminal {
             background: rgba(0, 0, 0, 0.9);
             border: 2px solid var(--matrix-green);
@@ -233,6 +241,7 @@
             padding: 2rem;
             margin: 2rem auto;
             max-width: 800px;
+            width: 95%;
             position: relative;
             font-family: 'Roboto Mono', monospace;
             animation: terminal-glow 3s infinite alternate;
@@ -259,6 +268,7 @@
         .yellow { background: #ffbd2e }
         .green { background: #27c93f }
 
+        /* Error Messages */
         .error-message {
             color: #ff4444;
             text-shadow: 0 0 10px #ff4444;
@@ -267,14 +277,47 @@
             animation: glitch 0.5s infinite;
         }
 
+        /* Input Field */
         .terminal-input {
             background: transparent;
             border: 1px solid var(--matrix-green);
             color: var(--matrix-green);
             padding: 0.5rem;
             font-family: 'Roboto Mono', monospace;
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
             margin: 0.5rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 0.3rem;
+            }
+
+            .cyber-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .cyber-card {
+                margin: 0 1rem;
+            }
+
+            .terminal {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+
+            .cyber-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .product-image {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -285,7 +328,7 @@
     </div>
 
     <div class="cyber-grid">
-        <!-- Product 1: Craxs Rat -->
+        <!-- Craxs Rat -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.postimg.cc/fRzZz5Q2/craxs1.png" alt="Craxs Rat">
@@ -302,7 +345,7 @@
             </button>
         </div>
 
-        <!-- Product 2: Triton Rat -->
+        <!-- Triton Rat -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.postimg.cc/02NJzGvQ/Tritron.png" alt="Triton Rat">
@@ -318,7 +361,7 @@
             </button>
         </div>
 
-        <!-- Product 3: Quantum Bundle -->
+        <!-- Quantum Bundle -->
         <div class="cyber-card">
             <div class="product-image">
                 <img src="https://i.ibb.co/wrC7VpJV/Picsart-25-02-02-19-48-11-573.jpg" alt="Premium Kit">
@@ -336,6 +379,7 @@
         </div>
     </div>
 
+    <!-- Terminal Section -->
     <div class="terminal" id="couponSection" style="display: none;">
         <div class="terminal-header">
             <div class="terminal-dot red"></div>
@@ -356,6 +400,7 @@
     </div>
 
     <script>
+        // Product Selection System
         let currentItem = null;
         let originalPrice = 0;
         let discountedPrice = 0;
@@ -370,14 +415,27 @@
             originalPrice = originalPriceValue;
             discountedPrice = discountedPriceValue;
             
+            // Update Display
             document.getElementById('selectedItem').textContent = item;
             document.getElementById('selectedPrice').textContent = originalPrice.toFixed(2);
             document.getElementById('discountedPrice').textContent = discountedPrice.toFixed(2);
-            document.getElementById('couponSection').style.display = 'block';
+            
+            // Show Terminal Section
+            const couponSection = document.getElementById('couponSection');
+            couponSection.style.display = 'block';
+            
+            // Smooth Scroll to Terminal
+            couponSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Reset Coupon Field
             document.getElementById('couponMessage').style.display = 'none';
             document.getElementById('couponCode').value = '';
         }
 
+        // Coupon System
         function applyCoupon() {
             const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
             const messageElement = document.getElementById('couponMessage');
@@ -386,22 +444,28 @@
                 const discount = validCoupons[couponCode];
                 discountedPrice = originalPrice * (1 - discount);
                 
+                // Show Success Message
                 messageElement.textContent = `COUPON APPLIED! ${discount*100}% DISCOUNT`;
                 messageElement.style.color = '#00ff4c';
                 messageElement.style.textShadow = '0 0 10px #00ff4c';
                 messageElement.style.display = 'block';
                 
+                // Update Discounted Price
                 document.getElementById('discountedPrice').textContent = discountedPrice.toFixed(2);
             } else {
+                // Show Error Message
                 messageElement.textContent = 'INVALID_COUPON::ACCESS_DENIED';
                 messageElement.style.color = '#ff4444';
                 messageElement.style.textShadow = '0 0 10px #ff4444';
                 messageElement.style.display = 'block';
+                
+                // Reset to Original Price
                 discountedPrice = originalPrice;
                 document.getElementById('discountedPrice').textContent = originalPrice.toFixed(2);
             }
         }
 
+        // Purchase System
         function initiatePurchase() {
             if(!currentItem) {
                 showError('NO_ITEM_SELECTED');
@@ -410,16 +474,19 @@
 
             const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
             const price = discountedPrice !== originalPrice ? discountedPrice : originalPrice;
-            const whatsappNumber = '+923176613782';
+            const whatsappNumber = '+923196074223';
             
+            // Format WhatsApp Message
             const message = `I want to purchase: ${currentItem}
 Original Price: $${originalPrice}
 ${discountedPrice !== originalPrice ? `Discounted Price: $${discountedPrice.toFixed(2)} (Coupon: ${couponCode})` : ''}`;
 
+            // Open WhatsApp
             const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappURL, '_blank');
         }
 
+        // Error Handling
         function showError(message) {
             const errorElement = document.getElementById('couponMessage');
             errorElement.textContent = `ERROR::${message}`;
